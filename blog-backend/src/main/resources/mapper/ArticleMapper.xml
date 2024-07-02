@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ArticleMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.domain.Article">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="INTEGER"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="user" column="user" jdbcType="VARCHAR"/>
+            <result property="time" column="time" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,remark,
+        content,user,time
+    </sql>
+    <select id="getAll" resultType="com.example.domain.Article">
+        SELECT article.id, article.title, article.remark, article.content, user.username as user, article.time
+        FROM article, user
+        WHERE article.user = user.id;
+    </select>
+    <select id="getByUid" resultType="com.example.domain.Article">
+        SELECT article.id, article.title, article.remark, article.content, user.username as user, article.time
+        FROM article
+                 INNER JOIN user ON article.user = user.id
+        WHERE article.remark = #{id};
+    </select>
+    <delete id="delArticle">
+        delete FROM article WHERE title = #{title};
+    </delete>
+</mapper>

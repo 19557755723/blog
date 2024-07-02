@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.RemarksMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.domain.Remarks">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="user" column="user" jdbcType="VARCHAR"/>
+            <result property="blog" column="blog" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="time" column="time" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user,blog,
+        content,time
+    </sql>
+    <select id="getComment" resultType="com.example.domain.Remarks">
+        SELECT * FROM remarks WHERE blog = #{blog}
+    </select>
+    <insert id="upComment">
+        insert into remarks (user,blog,content,time)values (#{user},#{blog},#{content},#{time})
+    </insert>
+    <delete id="delComment">
+        delete FROM remarks WHERE blog=#{blog}
+    </delete>
+</mapper>
